@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{.Values.prjName}}
+spec:
+  rules:
+  - host: api.tritti.ch
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{.Values.prjName}}
+            port:
+              number: 80
+  - host: static.tritti.ch
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{.Values.prjName}}-static
+            port:
+              number: 80
+

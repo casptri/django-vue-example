@@ -1,0 +1,20 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: {{.Values.prjName}}-localstorage
+provisioner: microk8s.io/hostpath
+reclaimPolicy: Delete
+parameters:
+  pvDir: /var/www/data
+volumeBindingMode: WaitForFirstConsumer
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{.Values.prjName}}-pvc
+spec:
+  storageClassName: {{.Values.prjName}}-localstorage
+  accessModes: [ReadOnlyMany]
+  resources: { requests: { storage: 10Gi } }
+

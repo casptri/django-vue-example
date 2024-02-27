@@ -1,0 +1,66 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.prjName }}
+  labels:
+    app: {{ .Values.prjName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.prjName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.prjName }}
+    spec:
+      containers:
+        - name: {{ .Values.prjName }}
+          image: localhost:32000/dveapi:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /var/www/data
+              name: pvc
+          env:
+            - name: DJANGO_STATIC_URL
+              value: "http://static.tritti.ch:80/static/"
+            - name: DJANGO_DATA_PATH
+              value: "/var/www/data"
+
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+              claimName: {{.Values.prjName}}-pvc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.prjName}}-static
+  labels:
+    app: {{.Values.prjName}}-static
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{.Values.prjName}}-static
+  template:
+    metadata:
+      labels:
+        app: {{.Values.prjName}}-static
+    spec:
+      containers:
+        - name: {{.Values.prjName}}-static
+          image: localhost:32000/dveapi-static:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /var/www/data/archive
+              name: pvc
+              readOnly: true
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+              claimName: {{.Values.prjName}}-pvc
+
