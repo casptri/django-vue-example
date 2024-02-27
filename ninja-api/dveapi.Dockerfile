@@ -1,7 +1,6 @@
 FROM python:3.10-alpine
 #FROM pypy:3.10-slim-bookworm
 ENV DockerHome=/home/app/webapp
-ENV AppName=dveApi
 
 RUN mkdir -p $DockerHome
 WORKDIR $DockerHome
@@ -12,8 +11,7 @@ ENV PYTHONUNBUFFERED 1
 RUN pip install --upgrade pip
 RUN pip install poetry
 
-COPY dveapi/ ./dveapi
-WORKDIR $DockerHome/$AppName
+COPY ./dveapi ./
 
 RUN poetry config virtualenvs.create false
 RUN poetry install --no-interaction --no-ansi
