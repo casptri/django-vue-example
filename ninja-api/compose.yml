@@ -19,11 +19,11 @@ services:
   #  ports:
   #    - 8801:8080
 
-  avgwebapi:
+  dveapi:
     image: dveapi:latest
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: dveapi.Dockerfile
     environment:
       DJANGO_DATA_PATH: "/var/www/data/"
       DJANGO_STATIC_HOSTNAME: "dveapi-static"
@@ -33,7 +33,7 @@ services:
       - /var/www/data/:/var/www/data
 
   dveapi-static:
-    image: dve-static
+    image: dveapi-static
     build:
       context: .
       dockerfile: static.Dockerfile
