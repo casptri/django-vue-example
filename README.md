@@ -72,6 +72,8 @@ helm upgrade foody-floppy dveChart
         - [x] create api
         - [ ] upload
         - [ ] download
+        - [ ] share with user
+        - [ ] onetime download with url token
         - [ ] serve files with nginx autoindex
             - [ ] compose
             - [ ] helm
@@ -83,6 +85,7 @@ helm upgrade foody-floppy dveChart
         - [ ] helm
 - Helm additionals
     - [ ] Ingress
+    - [ ] Cert-manager
     - [ ] HPA
 - [ ] Fill out Readme
 
