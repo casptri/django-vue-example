@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.prjName }}
+  labels:
+    app: {{ .Values.prjName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.prjName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.prjName }}
+    spec:
+      containers:
+        - name: {{ .Values.prjName }}
+          image: localhost:32000/dveapp:latest
+          ports:
+            - containerPort: 80

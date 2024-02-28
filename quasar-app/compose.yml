@@ -5,7 +5,7 @@ services:
     image: dveapp
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: dveapp.Dockerfile
     ports:
       - 8880:80
 
