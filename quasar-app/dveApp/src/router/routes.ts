@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
+import { appsRoute } from 'pages/apps/apps.js'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -6,6 +7,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '', component: () => import('pages/IndexPage.vue') }],
   },
+  appsRoute,
 
   // Always leave this as last one,
   // but you can also remove it
