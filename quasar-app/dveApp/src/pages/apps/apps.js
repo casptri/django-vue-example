@@ -5,7 +5,7 @@ import { skeletonConfig, skeletonRoute } from 'pages/apps/skeleton/skeletonConfi
 //import { vaultConfig, vaultRoute } from 'pages/apps/vault/vaultConfig.js'
 //import { contactConfig, contactRoute } from 'pages/apps/contact/contactConfig.js'
 //import { calendarConfig, calendarRoute } from 'pages/apps/calendar/calendarConfig.js'
-//import { playgroundConfig, playgroundRoute } from 'pages/apps/playground/playgroundConfig.js'
+import { playgroundConfig, playgroundRoute } from 'pages/apps/playground/playgroundConfig.js'
 
 const installedApps = [
     //knowledgeConfig,
@@ -14,7 +14,7 @@ const installedApps = [
     //calendarConfig,
     //layoutConfig,
     skeletonConfig,
-    //playgroundConfig,
+    playgroundConfig,
     //todoConfig,
 ]
 
@@ -33,7 +33,7 @@ const appsRoute = {
       //vaultRoute,
       //contactRoute,
       //calendarRoute,
-      //playgroundRoute,
+      playgroundRoute,
       //todoRoute,
     ]
   }
