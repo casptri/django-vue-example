@@ -1,4 +1,4 @@
-import layoutConfig from 'pages/apps/layout/layoutConfig.js'
+//import layoutConfig from 'pages/apps/layout/layoutConfig.js'
 import { skeletonConfig, skeletonRoute } from 'pages/apps/skeleton/skeletonConfig.js'
 //import { knowledgeConfig, knowledgeRoute } from 'pages/apps/knowledge/knowledgeConfig.js'
 //import { todoConfig, todoRoute } from 'pages/apps/todo/todoConfig.js'
@@ -20,13 +20,13 @@ const installedApps = [
 
 const appsRoute = {
     path: '/apps',
-    name: "Apps",
+    name: 'Apps',
     component: () => import('pages/apps/layout/AppsLayout.vue'),
     children: [
       {
         path: '',
         component:() => import('pages/apps/layout/AppsHomeView.vue'),
-        name: "AppsHome",
+        name: 'AppsHome',
       },
       skeletonRoute,
       //knowledgeRoute,

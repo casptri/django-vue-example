@@ -28,7 +28,7 @@ import { installedApps } from 'pages/apps/apps.js'
 export default {
   data() {
     return {
-      title: "AppsHome",
+      title: 'AppsHome',
       apps: installedApps,
     }
   },

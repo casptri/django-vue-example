@@ -8,7 +8,7 @@ const skeletonConfig = {
 const skeletonRoute = {
         path: 'skeleton',
         component:() => import('pages/apps/skeleton/SkeletonLayout.vue'),
-        name: "Skeleton",
+        name: 'Skeleton',
     }
 
 export { skeletonConfig, skeletonRoute }

@@ -73,7 +73,7 @@ export default defineComponent({
       type: Object,
     },
   },
-  setup(props, context) {
+  setup(props) {
     const $q = useQuasar()
     const entEntry = ref(props.entity[0].name)
     const darkMode = ref(true)
