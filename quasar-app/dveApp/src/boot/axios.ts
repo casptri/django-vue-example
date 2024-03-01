@@ -1,5 +1,6 @@
 import { boot } from 'quasar/wrappers';
 import axios, { AxiosInstance } from 'axios';
+import { useAccountStore } from 'stores/AccountStore';
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
@@ -14,11 +15,11 @@ declare module '@vue/runtime-core' {
 // "export default () => {}" function below (which runs individually
 // for each client)
 const api = axios.create({ baseURL: 'http://localhost:8000' });
+const account = useAccountStore()
 
 api.interceptors.request.use(function (config) {
-    if(localStorage.getItem('userAuthToken')) {
-      const token = localStorage.getItem('userAuthToken')
-      config.headers.Authorization = ('Bearer ' + token)
+    if (account.token) {
+      config.headers.Authorization = ('Bearer ' + account.token)
     }
     return config;
 }, function(error) {

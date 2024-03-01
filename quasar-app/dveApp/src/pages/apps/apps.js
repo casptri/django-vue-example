@@ -7,6 +7,9 @@ import { skeletonConfig, skeletonRoute } from 'pages/apps/skeleton/skeletonConfi
 //import { calendarConfig, calendarRoute } from 'pages/apps/calendar/calendarConfig.js'
 import { playgroundConfig, playgroundRoute } from 'pages/apps/playground/playgroundConfig.js'
 
+//import { useAccountStore } from 'stores/AccountStore';
+//const account = useAccountStore()
+
 const installedApps = [
     //knowledgeConfig,
     //vaultConfig,
@@ -17,11 +20,21 @@ const installedApps = [
     playgroundConfig,
     //todoConfig,
 ]
+const guard = function(to, from, next) {
+  if(localStorage.getItem('userAuthToken')) {
+    next()
+  } else {
+    window.location.href = "/login"
+  }
+}
 
 const appsRoute = {
     path: '/apps',
     name: 'Apps',
     component: () => import('pages/apps/layout/AppsLayout.vue'),
+    beforeEnter: (to, from, next) => {
+      guard(to, from, next)
+    },
     children: [
       {
         path: '',

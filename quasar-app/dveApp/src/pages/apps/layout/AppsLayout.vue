@@ -23,8 +23,10 @@
   import { ref } from 'vue'
   import AppsToolbar from 'pages/apps/layout/AppsToolbar.vue'
 
-  let startPage = ref({name: 'AppsHome'})
-  let entityList = ref([{name: 'Caspar'},{name: 'Ghost Inc'}])
+  const startPage = ref({name: 'AppsHome'})
+  //let entityList = ref([{name: 'Caspar'},{name: 'Ghost Inc'}])
+  const entityList = ref([])
+
 
 </script>
 

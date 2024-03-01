@@ -26,11 +26,11 @@
             <q-item-label>Dark Mode</q-item-label>
           </q-item-section>
           <q-item-section side>
-        <q-toggle 
-          size="s" 
+        <q-toggle
+          size="s"
           v-model="darkMode"
           color="blue"
-          @update:model-value="switch_dark" 
+          @update:model-value="switch_dark"
         />
           </q-item-section>
         </q-item>
@@ -40,12 +40,12 @@
             <q-item-label>My Profile</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable > 
+        <q-item clickable >
           <q-item-section>
             <q-item-label>Settings</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable > 
+        <q-item clickable @click="logout">
           <q-item-section>
             <q-item-label>Log Out</q-item-label>
           </q-item-section>
@@ -58,47 +58,32 @@
 <style>
 </style>
 
-<script>
-import { defineComponent } from 'vue'
-import { ref } from 'vue'
+<script setup lang="ts">
+import { ref, computed } from 'vue'
 import { useQuasar} from 'quasar'
+import { useAccountStore } from 'stores/AccountStore';
+import { useRouter } from 'vue-router'
 
-export default defineComponent({
-  name: 'AppsToolbar',
-  props: {
-    startPage: {
-      type: Object,
-      },
-    entity: {
-      type: Object,
-    },
-  },
-  setup(props) {
-    const $q = useQuasar()
-    const entEntry = ref(props.entity[0].name)
-    const darkMode = ref(true)
-    $q.dark.set(darkMode.value)
-    const item_click = (item) => {
-      entEntry.value = item.name
-    }
-    const switch_dark = (value) => {
-      $q.dark.set(value)
-    }
-    return {
-      darkMode,
-      entEntry,
-      item_click,
-      switch_dark,
-    }
-  }
-  //emits: ['click','added'],
-  //methods: {
-  //  onClick(page){
-  //    this.$emit("click", page)
-  //  },
-  //  addPage(group) {
-  //    this.$emit("added", group)
-  //  },
-  //},
-})
+const account = useAccountStore()
+const router = useRouter()
+
+const props = defineProps({
+    startPage: { type: Object },
+    entity: { type: Object },
+  })
+const $q = useQuasar()
+account.refresh()
+const entEntry = computed(() => account.getName)
+const darkMode = ref(true)
+$q.dark.set(darkMode.value)
+const item_click = (item) => {
+  entEntry.value = item.name
+}
+const switch_dark = (value) => {
+  $q.dark.set(value)
+}
+const logout = () => {
+  account.logout()
+  router.push({name: "login"})
+}
 </script>

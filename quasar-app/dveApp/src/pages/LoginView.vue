@@ -19,35 +19,21 @@
 </q-layout>
 </template>
 
-<script>
-import UserHandler from 'components/auth/UserHandler.vue'
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import { useAccountStore } from 'stores/AccountStore';
+import { useRouter } from 'vue-router'
 
-export default {
-  data() {
-    return {
-      username: "",
-      password: "",
-    }
-  },
-  methods: {
-    async doLogin () {
-    console.log("do_login")
-      UserHandler.login(this.username, this.password).then(response => {
-          console.log(response)
-          this.$router.push({name: "AppsHome"})
-        }).catch(error => {
-          console.log(error)
-        })
-    },
-  },
-  created() {
-    let token = localStorage.getItem('userAuthToken')
-    if(token) {
-      console.log(token)
-      this.$router.push({ name: 'AppsHome'})
-    }
-  }
+const account = useAccountStore()
+const router = useRouter()
+
+let username = ref("")
+let password = ref("")
+let doLogin = async () => {
+  await account.login(username.value, password.value)
+  router.push({name: "AppsHome"})
 }
+
 </script>
 <style>
 h1 {
