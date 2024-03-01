@@ -61,13 +61,14 @@ helm upgrade foody-floppy dveChart
             - [ ] setup postgres
                 - [ ] compose
                 - [ ] helm
-        - [ ] static files
-            - [ ] django settings
+        - [x] static files
+            - [x] django settings
             - [ ] serve static files with nginx
                 - [x] compose
                 - [ ] helm
     - Authentication
-        - [ ] create api
+        - [x] create api
+        - [ ] api tests
     - File Share API
         - [x] create api
         - [ ] upload
@@ -77,12 +78,20 @@ helm upgrade foody-floppy dveChart
         - [ ] serve files with nginx autoindex
             - [ ] compose
             - [ ] helm
+        - [ ] api tests
 - Vue3 App
     - Basic
         - [x] quasar setup
-        - [ ] Dockerfile
-        - [ ] compose
-        - [ ] helm
+        - [x] Dockerfile
+        - [x] compose
+        - [x] helm
+            - [ ] test it manually
+    - Authenticate
+        - [x] create store
+        - [x] logging
+        - [x] keep logged in
+    - File Share
+        - [ ] create app
 - Helm additionals
     - [ ] Ingress
     - [ ] Cert-manager
