@@ -18,9 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 
 from fileManager.api import devApi
+from playground.api import playgroundApi
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('auth/', include("authenticate.urls")),
     path("file/", devApi.urls),
+    path("playground/", playgroundApi.urls),
 ]

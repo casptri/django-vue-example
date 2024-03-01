@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import datetime
+import os
+import socket
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     'ninja_extra',
     'ninja_jwt',
     'fileManager',
+    'playground',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +127,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+DEFAULT_STATIC_ROOT = None
+STATIC_ROOT = os.environ.get("DJANGO_STATIC_ROOT", DEFAULT_STATIC_ROOT)
+STATIC_HOSTNAME = os.environ.get("DJANGO_STATIC_HOSTNAME")
+STATIC_PORT = os.environ.get("DJANGO_STATIC_PORT","80")
+
+if STATIC_HOSTNAME:
+    static_ip = socket.gethostbyname(STATIC_HOSTNAME)
+    STATIC_URL = f"http://{static_ip}:{STATIC_PORT}/static/"
+else:
+    DEFAULT_STATIC_URL = 'static/'
+    STATIC_URL = os.environ.get("DJANGO_STATIC_URL", DEFAULT_STATIC_URL)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
