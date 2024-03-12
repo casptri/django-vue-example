@@ -19,8 +19,8 @@ class SetterBody(Schema):
     var0: str
     var1: str
 
-@api_controller("")
-class RootController:
+@api_controller("get")
+class GetterController:
     @route.get("")
     def get(self):
         p = Path(os.getcwd()) / settings.FILEMANAGER_BASEPATH
@@ -38,12 +38,6 @@ class RootController:
         response = FileResponse(dl_file.open('rb'))
         response['Content-Disposition'] = 'attachment; filename="test.txt"'
         return response
-
-@api_controller("test")
-class TestController:
-    @route.get("")
-    def get(self):
-        return {'test': "is ok"}
 
 @api_controller("set")
 class SetterController:
@@ -67,4 +61,32 @@ class SetterController:
         return 403, "File not Fount"
 
 
+@api_controller("file")
+class FileController:
+    def _save_file(self, file):
+        base_path = Path(settings.FILEMANAGER_BASEPATH)
+        data = file.read()
+        file_path = base_path / file.name
+        with file_path.open('wb') as f:
+            f.write(data)
+        return file_path
+
+    @route.get("/{file_req}", response={200: None, 403: str})
+    def get_file(self, request, file_req: str):
+        base_path = Path(settings.FILEMANAGER_BASEPATH)
+        dl_file = base_path / file_req
+        if not dl_file.exists():
+            return 403, "File not Found"
+        response = FileResponse(dl_file.open('rb'))
+        response['Content-Disposition'] = f'attachment; filename="{file_req}"'
+        return response
+
+    @route.post("", response={200: None, 403: str})
+    def upload(self, request, up_file: UploadedFile = File(...)):
+        base_path = Path(settings.FILEMANAGER_BASEPATH)
+        file_name = up_file.name
+        if (base_path / file_name).exists():
+            return 403, "File already exists"
+        self._save_file(up_file)
+        return 200
 

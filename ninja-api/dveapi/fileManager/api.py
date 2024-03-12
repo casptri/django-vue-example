@@ -1,6 +1,6 @@
 from ninja_extra import NinjaExtraAPI
 
-from .controller import RootController, TestController, SetterController
+from .controller import GetterController, SetterController, FileController
 
 devApi = NinjaExtraAPI(
         title = "FileManager",
@@ -9,7 +9,7 @@ devApi = NinjaExtraAPI(
         )
 
 devApi.register_controllers(
-        RootController,
-        TestController,
+        GetterController,
         SetterController,
+        FileController,
         )
