@@ -10,7 +10,6 @@ RUN djm collectstatic --noinput
 FROM nginx
 
 RUN mkdir -p /var/www/data/static
-RUN mkdir -p /var/www/data/storage
 
 COPY --from=api /var/www/static /var/www/data/static
 

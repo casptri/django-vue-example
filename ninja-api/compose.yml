@@ -20,28 +20,29 @@ services:
   #    - 8801:8080
 
   dveapi:
-    image: dveapi:latest
+    image: dveapi:0.1.0
     build:
       context: .
       dockerfile: dveapi.Dockerfile
     environment:
       DJANGO_DATA_PATH: "/var/www/data/"
       DJANGO_STATIC_HOSTNAME: "dveapi-static"
+      DJANGO_STORAGE_PATH: "/var/www/data/"
     ports:
-      - 8881:80
+      - 8801:80
     volumes:
-      - /var/www/data/:/var/www/data
+      - ./data:/var/www/data
 
   dveapi-static:
-    image: dveapi-static
+    image: dveapi-static:0.1.0
     build:
       context: .
       dockerfile: static.Dockerfile
       args:
-        API_VERSION: latest
+        API_VERSION: 0.1.0
         API_NAME: dveapi
     ports:
-      - 8882:80
+      - 8802:80
     volumes:
-      - /var/www/data/archive:/var/www/data/archive
+      - ./data:/var/www/data/storage
 

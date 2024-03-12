@@ -144,7 +144,7 @@ else:
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-FILEMANAGER_BASEPATH = "obj"
+FILEMANAGER_BASEPATH = os.environ.get("DJANGO_STORAGE_PATH","obj")
 
 NINJA_JWT = {
     "AUTH_TOKEN_CLASSES": ("ninja_jwt.tokens.AccessToken",),
