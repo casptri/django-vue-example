@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: {{ .Values.prjName }}
-          image: localhost:32000/dveapi:latest
+          image: localhost:32000/dveapi:{{.Values.apiVersion}}
           ports:
             - containerPort: 80
           volumeMounts:
@@ -25,7 +25,7 @@ spec:
               name: pvc
           env:
             - name: DJANGO_STATIC_URL
-              value: "http://static.tritti.ch:80/static/"
+              value: "http://static.{{.Values.domain}}:80/static/"
             - name: DJANGO_DATA_PATH
               value: "/var/www/data"
 
@@ -52,11 +52,11 @@ spec:
     spec:
       containers:
         - name: {{.Values.prjName}}-static
-          image: localhost:32000/dveapi-static:latest
+          image: localhost:32000/dveapi-static:{{.Values.staticVersion}}
           ports:
             - containerPort: 80
           volumeMounts:
-            - mountPath: /var/www/data/archive
+            - mountPath: /var/www/data/storage
               name: pvc
               readOnly: true
       volumes:

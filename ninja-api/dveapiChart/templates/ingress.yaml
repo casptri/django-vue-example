@@ -4,7 +4,7 @@ metadata:
   name: {{.Values.prjName}}
 spec:
   rules:
-  - host: api.tritti.ch
+  - host: api.{{.Values.domain}}
     http:
       paths:
       - path: /
@@ -14,7 +14,7 @@ spec:
             name: {{.Values.prjName}}
             port:
               number: 80
-  - host: static.tritti.ch
+  - host: static.{{.Values.domain}}
     http:
       paths:
       - path: /
