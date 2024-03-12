@@ -7,7 +7,7 @@ staticVersion: 0.1.0
 
 storage:
   local: false
-  class: main-localstorage
+  class: example-localstorage
 
 replicaCount: 1
 

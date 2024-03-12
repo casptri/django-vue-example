@@ -6,7 +6,7 @@ metadata:
 provisioner: microk8s.io/hostpath
 reclaimPolicy: Delete
 parameters:
-  pvDir: /var/www/data
+  pvDir: {{.Values.storage.path}}
 volumeBindingMode: WaitForFirstConsumer
 {{ end }}
 ---
@@ -18,7 +18,7 @@ spec:
   {{ if .Values.storage.local }}
   storageClassName: {{.Values.prjName}}-localstorage
   {{ else }}
-  storageClassName: {{.Values.prjName}}-localstorage
+  storageClassName: {{.Values.storage.class}}
   {{ end }}
   accessModes: [ReadOnlyMany]
   resources: { requests: { storage: 1Gi } }
