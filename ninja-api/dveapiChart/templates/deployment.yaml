@@ -28,11 +28,17 @@ spec:
               value: "http://static.{{.Values.domain}}:80/static/"
             - name: DJANGO_DATA_PATH
               value: "/var/www/data"
+            - name: DJANGO_STORAGE_PATH
+              value: "/var/www/data"
 
       volumes:
         - name: pvc
           persistentVolumeClaim:
+              {{ if .Values.storage.localClaim }}
               claimName: {{.Values.prjName}}-pvc
+              {{ else }}
+              claimName: {{.Values.storage.claim}}
+              {{ end }}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -62,5 +68,9 @@ spec:
       volumes:
         - name: pvc
           persistentVolumeClaim:
+              {{ if .Values.storage.localClaim }}
               claimName: {{.Values.prjName}}-pvc
+              {{ else }}
+              claimName: {{.Values.storage.claim}}
+              {{ end }}
 

@@ -10,6 +10,7 @@ parameters:
 volumeBindingMode: WaitForFirstConsumer
 {{ end }}
 ---
+{{ if .Values.storage.localClaim }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -22,4 +23,5 @@ spec:
   {{ end }}
   accessModes: [ReadOnlyMany]
   resources: { requests: { storage: 1Gi } }
+{{ end }}
 
