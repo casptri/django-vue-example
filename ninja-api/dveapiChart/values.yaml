@@ -1,7 +1,7 @@
 # Default values for dveapiChart.
 
 prjName: dveapi
-domain: dve.hs-avg.ch
+domain: dve.example.local
 apiVersion: 0.1.0
 staticVersion: 0.1.0
 
@@ -10,6 +10,7 @@ storage:
   localClaim: false
   class: dve-localstorage
   claim: dve-pvc
+  path: /var/www/data
 
 replicaCount: 1
 
