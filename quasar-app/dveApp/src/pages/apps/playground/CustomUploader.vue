@@ -12,6 +12,15 @@
       icon="add"
       @click="doUpload"
       />
+    <q-uploader
+        url="http://localhost:8000/file/file"
+        field-name="up_file"
+        label="No thumbnails"
+        color="amber"
+        text-color="black"
+        no-thumbnails
+        style="max-width: 300px"
+        />
     </div>
   </div>
 </template>

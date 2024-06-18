@@ -9,7 +9,7 @@ from django.conf import settings
 
 from pathlib import Path
 import os
-from typing import Dict
+from typing import Dict, List
 import toml
 
 class Error(Schema):
@@ -60,6 +60,28 @@ class SetterController:
             return 200, {"p": f, 'info': item.dict() }
         return 403, "File not Fount"
 
+@api_controller("ls")
+class LsController:
+    @route.get("/", response={200: list, 403: str})
+    def get_base(self, request):
+        base_path = Path(settings.FILEMANAGER_BASEPATH)
+        print(base_path.resolve())
+        l = []
+        for entry in base_path.iterdir():
+            l.append(entry.name)
+        return 200, l
+
+    @route.get("/{path:value}", response={200: list, 403: str})
+    def get(self, request, value: str):
+        if value[0] == "/":
+            base_path = Path(settings.FILEMANAGER_BASEPATH)
+        else:
+            base_path = Path(settings.FILEMANAGER_BASEPATH) / value
+        l = []
+        for entry in base_path.iterdir():
+            l.append(entry.name)
+        return 200, l
+
 
 @api_controller("file")
 class FileController:
@@ -72,7 +94,7 @@ class FileController:
         return file_path
 
     @route.get("/{file_req}", response={200: None, 403: str})
-    def get_file(self, request, file_req: str):
+    def get_file(self, request, file_req: str ):
         base_path = Path(settings.FILEMANAGER_BASEPATH)
         dl_file = base_path / file_req
         if not dl_file.exists():
@@ -82,9 +104,14 @@ class FileController:
         return response
 
     @route.post("", response={200: None, 403: str})
+    #def upload(self, request):#, up_file: UploadedFile = File(...)):
     def upload(self, request, up_file: UploadedFile = File(...)):
+        for e in request:
+            print(e)
+        print("Got file")
         base_path = Path(settings.FILEMANAGER_BASEPATH)
         file_name = up_file.name
+        print(file_name)
         if (base_path / file_name).exists():
             return 403, "File already exists"
         self._save_file(up_file)
