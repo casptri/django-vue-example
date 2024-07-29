@@ -14,7 +14,12 @@ declare module '@vue/runtime-core' {
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-const api = axios.create({ baseURL: 'http://localhost:8000' });
+let dve_url = 'http://localhost:8000'
+if (import.meta.env.VITE_DVE_API_URL) {
+    dve_url = import.meta.env.VITE_DVE_API_URL
+}
+//const api = axios.create({ baseURL: 'http://localhost:8000' });
+const api = axios.create({ baseURL: dve_url });
 const account = useAccountStore()
 
 api.interceptors.request.use(function (config) {
